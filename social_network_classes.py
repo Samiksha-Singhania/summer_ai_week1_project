@@ -17,22 +17,67 @@ class SocialNetwork:
         # hint: load a the json file from disk and look up how to recreate the list of people objects.
         pass
 
-    def  create_account(self):
+    def create_account(self):
         #implement function that creates account here
-        print("Creating ...")
-        pass
+        name = input("Enter name: ")
+        age = input("Enter age: ")
+        email = input("Enter email: ")
+        p1 = Person(name,age,email)
+        print(p1.id)
+        self.list_of_people.append(p1)
+        
+    def which_account(self,name):
+        for user in  self.list_of_people:
+            if user.id == name:
+                return user
 
 
 class Person:
-    def __init__(self, name, age):
+    def __init__(self, name, age, email):
         self.id = name
         self.year = age
+        self.email = email
         self.friendlist = []
+        self.messages = []
+        self.blocked_friends = []
 
-    def add_friend(self, person_object):
+    def add_friend(self, name):
         #implement adding friend. Hint add to self.friendlist
-        pass
+        if name not in self.friendlist:
+            self.friendlist.append(name)
+        
 
-    def send_message(self):
-        #implement sending message to friend here
-        pass
+    def view_friends(self):
+        print (self.friendlist)
+    
+    def block_friend(self, name):
+        if name in self.friendlist:
+            self.friendlist.remove(name)
+            self.blocked_friends.append(name)
+        
+
+    def send_message(self, person, message, mysocialnetwork):
+        #if person in self.friendlist:
+        for user in  mysocialnetwork.list_of_people:
+            if user.id == person:
+                print("User: ")
+                print(user)
+                user.messages.append(message)
+ 
+    def view_message(self):
+        print(self.messages)
+
+    def changename(self):
+        n = input("Add new name: ")
+        print("Your new name is " + n)
+        self.id = n
+
+    def changeage(self):
+        a = input("Add new age: ")
+        print("Your new age is " + a)
+        self.year = a
+
+    def changeemail(self):
+        e = input("Add new email: ")
+        print("Your new email is " + e)
+        self.email = e
